@@ -7,7 +7,6 @@
 #include <QStateMachine>
 #include <QEventTransition>
 #include <QPropertyAnimation>
-//#include <QtCore>
 #include <QtGui>
 #include <QtBluetooth>
 #include <QDialog>
@@ -15,7 +14,6 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QButtonGroup>
-//#include <QBluetoothDeviceDiscoveryAgent>
 #include <QBluetoothSocket>
 #include <QListWidget>
 
@@ -54,10 +52,6 @@ private slots:
 
     void on_stand_button_pressed();
 
-    //void deviceDiscovered(const QBluetoothDeviceInfo &device);
-
-    //void on_devicesList_itemClicked(QListWidgetItem *item);
-
     void connected();
 
     void onSocketErrorOccurred(QBluetoothSocket::SocketError);
@@ -77,7 +71,6 @@ private:
     QState *ST_MODE;
     QState *SR_MODE;
     QState *WG1_MODE;
-    QState *WG2_MODE;
 
     Ui::FangControl *ui;
     QSerialPort *arduino;
@@ -87,10 +80,9 @@ private:
     static const quint16 arduino_uno_product_id;
     bool arduino_available;
 
-    //QBluetoothDeviceDiscoveryAgent *discoveryAgent = new QBluetoothDeviceDiscoveryAgent; // Used to search for bluetooth devices
     QBluetoothSocket *socket = nullptr; // Sets up RFCOMM socket similar to TCP socket
   //  QString btAddr = "98:D3:11:FC:1B:B0"; // Hexidecimal address of bluetooth device
-      QString btAddr = "98:D3:61:FD:33:54"; // Hexidecimal address of bluetooth device
+      QString btAddr = "20:18:02:05:28:79"; // Hexidecimal address of bluetooth device
 };
 
 #endif // FANGCONTROL_H
