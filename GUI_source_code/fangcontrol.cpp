@@ -53,6 +53,8 @@ FangControl::FangControl(QWidget *parent) :
     WG1_MODE->assignProperty(ui->rotate_m, "text", "Stationary - Rotate");
     WG1_MODE->assignProperty(ui->walk_g1_m, "text", "<b>Walk - Gait 1</b>");
     WG1_MODE->assignProperty(ui->walk_g2_m, "text", "Walk - Gait 2");
+    WG1_MODE->assignProperty(ui->l1_button, "text", "<--");
+    WG1_MODE->assignProperty(ui->r1_button, "text", "-->");
     t_wg2_mode->setTargetState(WG2_MODE);
     WG1_MODE->addTransition(t_wg2_mode);
 
@@ -88,27 +90,13 @@ FangControl::~FangControl()
 void FangControl::on_right_button_pressed()
 {
     if(state_m->configuration().contains(ST_MODE))
-        socket->write("st_right_button_p");
+        socket->write("d");
     else if(state_m->configuration().contains(SR_MODE))
-        socket->write("sr_right_button_p");
+        socket->write("l");
     else if(state_m->configuration().contains(WG1_MODE))
-        socket->write("wg1_right_button_p");
+        socket->write("h");
     else if(state_m->configuration().contains(WG2_MODE))
         socket->write("wg2_right_button_p");
-    else
-        QMessageBox::information(this, "Right Button Release", "Error, Invalid State!");
-}
-
-void FangControl::on_right_button_released()
-{
-    if(state_m->configuration().contains(ST_MODE))
-        socket->write("st_right_button_r");
-    else if(state_m->configuration().contains(SR_MODE))
-        socket->write("sr_right_button_r");
-    else if(state_m->configuration().contains(WG1_MODE))
-        socket->write("wg1_right_button_r");
-    else if(state_m->configuration().contains(WG2_MODE))
-        socket->write("wg2_right_button_r");
     else
         QMessageBox::information(this, "Right Button Release", "Error, Invalid State!");
 }
@@ -116,126 +104,82 @@ void FangControl::on_right_button_released()
 void FangControl::on_down_button_pressed()
 {
     if(state_m->configuration().contains(ST_MODE))
-        socket->write("st_down_button_p");
+        socket->write("s");
     else if(state_m->configuration().contains(SR_MODE))
-        socket->write("sr_down_button_p");
+        socket->write("i");
     else if(state_m->configuration().contains(WG1_MODE))
-        socket->write("wg1_down_button_p");
+        socket->write("g");
     else if(state_m->configuration().contains(WG2_MODE))
         socket->write("wg2_down_button_p");
     else
         QMessageBox::information(this, "Down Button Press", "Error, Invalid State!");
 }
 
-
-void FangControl::on_down_button_released()
-{
-    if(state_m->configuration().contains(ST_MODE))
-        socket->write("st_down_button_r");
-    else if(state_m->configuration().contains(SR_MODE))
-        socket->write("sr_down_button_r");
-    else if(state_m->configuration().contains(WG1_MODE))
-        socket->write("wg1_down_button_r");
-    else if(state_m->configuration().contains(WG2_MODE))
-        socket->write("wg2_down_button_r");
-    else
-        QMessageBox::information(this, "Down Button Release", "Error, Invalid State!");
-}
-
 void FangControl::on_left_button_pressed()
 {
     if(state_m->configuration().contains(ST_MODE))
-        socket->write("st_left_button_p");
+        socket->write("a");
     else if(state_m->configuration().contains(SR_MODE))
-        socket->write("sr_left_button_p");
+        socket->write("j");
     else if(state_m->configuration().contains(WG1_MODE))
-        socket->write("wg1_left_button_p");
+        socket->write("f");
     else if(state_m->configuration().contains(WG2_MODE))
         socket->write("wg2_left_button_p");
     else
         QMessageBox::information(this, "Left Button Pressed", "Error, Invalid State!");
 }
 
-void FangControl::on_left_button_released()
-{
-    if(state_m->configuration().contains(ST_MODE))
-        socket->write("st_left_button_r");
-    else if(state_m->configuration().contains(SR_MODE))
-        socket->write("sr_left_button_r");
-    else if(state_m->configuration().contains(WG1_MODE))
-        socket->write("wg1_left_button_r");
-    else if(state_m->configuration().contains(WG2_MODE))
-        socket->write("wg2_left_button_r");
-    else
-        QMessageBox::information(this, "Left Button Release", "Error, Invalid State!");
-}
-
 void FangControl::on_up_button_pressed()
 {
     if(state_m->configuration().contains(ST_MODE))
-        socket->write("st_up_button_p");
+        socket->write("w");
     else if(state_m->configuration().contains(SR_MODE))
-        socket->write("sr_up_button_p");
+        socket->write("k");
     else if(state_m->configuration().contains(WG1_MODE))
-        socket->write("wg1_up_button_p");
+        socket->write("t");
     else if(state_m->configuration().contains(WG2_MODE))
         socket->write("wg2_up_button_p");
     else
         QMessageBox::information(this, "Up Button Press", "Error, Invalid State!");
 }
 
-void FangControl::on_up_button_released()
-{
-    if(state_m->configuration().contains(ST_MODE))
-        socket->write("st_up_button_r");
-    else if(state_m->configuration().contains(SR_MODE))
-        socket->write("sr_up_button_r");
-    else if(state_m->configuration().contains(WG1_MODE))
-        socket->write("wg1_up_button_r");
-    else if(state_m->configuration().contains(WG2_MODE))
-        socket->write("wg2_up_button_r");
-    else
-        QMessageBox::information(this, "Up Button Release", "Error, Invalid State!");
-}
-
+/* Z+, Yaw+, <-- Buttons*/
 void FangControl::on_l1_button_pressed()
 {
     if(state_m->configuration().contains(ST_MODE))
-        socket->write("+Z_p");
+        socket->write("q"); // Z+
+    else if(state_m->configuration().contains(SR_MODE))
+        socket->write("u"); // Yaw-
+    else if(state_m->configuration().contains(WG1_MODE))
+        socket->write("r"); // <--
+    else if(state_m->configuration().contains(WG2_MODE))
+        socket->write("wg2_up_button_r");
     else
-        socket->write("+YAW_p");
+        QMessageBox::information(this, "L1 Button Release", "Error, Invalid State!");
 }
 
-void FangControl::on_l1_button_released()
-{
-    if(state_m->configuration().contains(ST_MODE))
-        socket->write("+Z_r");
-    else
-        socket->write("+YAW_r");
-}
 
+/* Z-, Yaw-, --> Buttons*/
 void FangControl::on_r1_button_pressed()
 {
     if(state_m->configuration().contains(ST_MODE))
-        socket->write("-Z_p");
+        socket->write("e"); // Z-
+    else if(state_m->configuration().contains(SR_MODE))
+        socket->write("o"); // Yaw-
+    else if(state_m->configuration().contains(WG1_MODE))
+        socket->write("y"); // -->
+    else if(state_m->configuration().contains(WG2_MODE))
+        socket->write("wg2_up_button_r");
     else
-        socket->write("-YAW_p");
+        QMessageBox::information(this, "L1 Button Release", "Error, Invalid State!");
 }
 
-void FangControl::on_r1_button_released()
-{
-    if(state_m->configuration().contains(ST_MODE))
-        socket->write("-Z_r");
-    else
-        socket->write("-YAW_r");
-}
-
-void FangControl::on_reset_button_pressed()
+void FangControl::on_center_button_pressed()
 {
     if(!(state_m->configuration().contains(NO_CONNECTION)))
-//        QMessageBox::information(this, "Reset Button", "Reset Button Pressed!");
+//        QMessageBox::information(this, "Center Button", "Center Button Pressed!");
 //    else
-        socket->write("rst");
+        socket->write("/");
 }
 
 void FangControl::on_sit_button_pressed()
@@ -243,7 +187,7 @@ void FangControl::on_sit_button_pressed()
     if(!(state_m->configuration().contains(NO_CONNECTION)))
     //    QMessageBox::information(this, "Sit Button", "Sit Button Pressed!");
     //else
-        socket->write("sit");
+        socket->write(",");
 }
 
 void FangControl::on_stand_button_pressed()
@@ -251,7 +195,7 @@ void FangControl::on_stand_button_pressed()
     if(!(state_m->configuration().contains(NO_CONNECTION)))
 //        QMessageBox::information(this, "Stand Button", "Stand Button Pressed!");
 //    else
-        socket->write("stand");
+        socket->write(".");
 }
 
 void FangControl::on_connect_button_clicked(bool connect_enable)
@@ -286,7 +230,7 @@ void FangControl::on_mode_button_clicked()
         ui->right_button->setEnabled(true);
         ui->up_button->setEnabled(true);
         ui->down_button->setEnabled(true);
-        ui->reset_button->setEnabled(true);
+        ui->center_button->setEnabled(true);
         ui->sit_button->setEnabled(true);
         ui->stand_button->setEnabled(true);
     }

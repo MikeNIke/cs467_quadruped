@@ -48,23 +48,11 @@ private slots:
 
     void on_r1_button_pressed();
 
-    void on_reset_button_pressed();
+    void on_center_button_pressed();
 
     void on_sit_button_pressed();
 
     void on_stand_button_pressed();
-
-    void on_up_button_released();
-
-    void on_left_button_released();
-
-    void on_right_button_released();
-
-    void on_down_button_released();
-
-    void on_l1_button_released();
-
-    void on_r1_button_released();
 
     //void deviceDiscovered(const QBluetoothDeviceInfo &device);
 
@@ -101,8 +89,8 @@ private:
 
     //QBluetoothDeviceDiscoveryAgent *discoveryAgent = new QBluetoothDeviceDiscoveryAgent; // Used to search for bluetooth devices
     QBluetoothSocket *socket = nullptr; // Sets up RFCOMM socket similar to TCP socket
-    QString btAddr = "98:D3:11:FC:1B:B0"; // Hexidecimal address of bluetooth device
-
+  //  QString btAddr = "98:D3:11:FC:1B:B0"; // Hexidecimal address of bluetooth device
+      QString btAddr = "98:D3:61:FD:33:54"; // Hexidecimal address of bluetooth device
 };
 
 #endif // FANGCONTROL_H
